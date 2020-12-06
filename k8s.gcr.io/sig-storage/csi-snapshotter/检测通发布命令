@@ -1,0 +1,21 @@
+发布ecard
+1.登陆北京阿里云测试环境172.16.225.63
+cd /data/www/ecard/WEB-INF/lib/
+tar cf ecard.tar ecard-*
+将ecard.tar下载到本地
+2.登陆到曙光云运维机
+tar xf  -C /tmp
+tar xf /yydir/ecard.tar -C /tmp
+rsync -avP /tmp/ecard-* root@192.168.22.175:/data/www/ecard/WEB-INF/lib/
+rsync -avP /tmp/ecard-* root@192.168.22.176:/data/www/ecard/WEB-INF/lib/
+ansible houduan -m 
+
+
+
+
+
+
+发布后端
+ansible qianduan -m shell -a "/data/detectsys-server/spring-boot.sh stop /data/detectsys-server/detectsys-server.jar"
+ansible qianduan -m copy -a "src=/yydir/detectsys-server.jar  dest=/data/detectsys-server/ mode=755 "
+ansible qianduan -m shell -a "/data/detectsys-server/spring-boot.sh start /data/detectsys-server/detectsys-server.jar"

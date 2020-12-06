@@ -1,0 +1,58 @@
+阿里云测试环境
+
+前端访问地址: http://47.97.220.177/testpass/index.html?
+前端NG服务器: 47.97.220.177
+前端实际服务器: 47.97.220.177
+前端发布路径: /opt/servers/nginx/html/wxcity/testpass
+发布命令: unzip testpass.zip -d /opt/servers/nginx/html/wxcity/
+
+enomiu访问路径: 172.16.225.63:/eunomia-server/
+实际服务器: 172.16.225.63:8090
+路径: /home/poseidon/tomcat/
+
+
+
+
+ecard访问地址: 172.16.225.63:/ecard/(核酸筛查信息系统后台)
+实际服务器: 172.16.225.63:8094
+文件地址 : /data/www/ecard/（发布覆盖此目录文件）
+启动脚本: /data/tomcat/ecard/bin（发布完成此处重新启动tomcat使发布生效）
+
+
+
+曙光云生产
+
+前端访问地址:https://jct.internetofcity.cn:8443/ecardstatic/index.html
+前端NG:2.20.125.33/34
+发布路径: /data/www/ecard/front
+发布命令:
+unzip testpass.zip -d /tmp/
+rsync -avP /tmp/testpass/ root@2.20.125.33:/data/www/ecard/front/  pw: #N4T*HAfwm
+rsync -avP /tmp/testpass/ root@2.20.125.34:/data/www/ecard/front/  pw: &&5!k9d$3w
+
+
+
+
+
+ecard访问地址: https://jct.internetofcity.cn:8443/ecard/(核酸筛查信息系统后台)
+实际服务器: 2.20.207.81/82
+文件地址 : /data/www/ecard/（发布覆盖此目录文件）
+启动脚本: /data/tomcat/ecard/bin（发布完成此处重新启动tomcat使发布生效）
+发布脚本: /
+获取文件脚本:
+cd /data/www/ecard/WEB-INF/lib/
+tar cf 1 ecard-*
+下载并上传到
+tar xf 1 -C /tmp
+rsync -avP /tmp/ecard-* root@192.168.22.175:/data/www/ecard/WEB-INF/lib/ pw: Cb73ys8*@!
+rsync -avP /tmp/ecard-* root@192.168.22.176:/data/www/ecard/WEB-INF/lib/ pw: Hd5S&5au95
+
+
+
+
+
+ansible qianduan -m copy -a "src=/yydir/detectsys-server.jar  dest=/data/detectsys-server/ mode=755 "
+ansible qianduan -m copy -a "src=/yydir/spring-boot.sh  dest=/data/detectsys-server/ mode=755 "
+ansible qianduan -m shell -a "/data/detectsys-server/spring-boot.sh start /data/detectsys-server/detectsys-server.jar"
+
+172.21.101.18
